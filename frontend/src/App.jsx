@@ -6,11 +6,11 @@ import HomePage from "./Pages/HomePage";
 
 function App() {
   return (
-    <Box maxH={"100vh"} bg={useColorModeValue("gray.200", "whiteAlpha.100")}>
+    <Box maxH={"100vh"} bg = {useColorModeValue("gray.100", "whiteAlpha.100")}>
       <NavBar></NavBar>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
-        <Route path="/" element={<CreatePage />}></Route>
+        <Route path="/createPage" element={<CreatePage />}></Route>
       </Routes>
     </Box>
   );

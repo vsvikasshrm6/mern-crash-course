@@ -1,35 +1,31 @@
-import { Button, Center, Container, Flex, HStack, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, HStack, Text, useColorMode} from "@chakra-ui/react";
 import React from "react";
-import { CiSquarePlus } from "react-icons/ci";
+import { LuMoon, LuSun } from "react-icons/lu";
+import { FaPlusSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-function NavBar() {
-  
+const NavBar = () => {
+  const {toggleColorMode, colorMode} = useColorMode();
   return (
-    <Container maxWidth={"1140px"}>
-      <Flex
-        direction={"row"}
-        textAlign={Center}
-        justifyContent={"space-between"}
-      >
+    <Container maxWidth={"container.sm"} py={"8"} >
+      <Flex justifyContent={"space-between"}>
         <Text
-          bgGradient="linear(to-l, #7928CA, #FF0080)"
-          bgClip="text"
-          fontSize="6xl"
-          fontWeight="extrabold"
-        >
-          Welcome to Chakra UI
-        </Text>
-        <HStack>
+         bgGradient='linear(to-l, #7928CA, #FF0080)'
+         bgClip='text'
+         fontSize='xl'
+         fontWeight='extrabold'
+        >Product Store</Text>
+        <HStack spacing={'0.5'} >
           <Button>
-            <CiSquarePlus />
-          </Button>
-          <Button onClick={useColorMode}>
-          </Button>
+            <Link to={"/createPage"}><FaPlusSquare /></Link>
+            </Button>
+            <Button onClick={toggleColorMode}>
+            {colorMode ==="light" ? <LuMoon/> :<LuSun/>}
+            </Button>
         </HStack>
       </Flex>
     </Container>
   );
-}
+};
 
 export default NavBar;
