@@ -1,9 +1,10 @@
 import { Button, Container, Input, Text, VStack } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useProductStore } from '../store/products';
-import { toast } from "react-toastify";
+import { useToast } from '@chakra-ui/react'
 
 export default function CreatePage() {
+  const toast = useToast()
   const [product, setProduct] = useState({
     name : "",
     price : "",
@@ -13,10 +14,22 @@ export default function CreatePage() {
   const handleClick = async ()=>{
     const res = await createProduct(product);
     if(res.success ==='true'){
-      toast("Product created Successfully");
+      toast({
+        title: 'Success',
+        description: "Product Created.",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
     }
     else{
-      toast("Product not created");
+      toast({
+        title: 'Error',
+        description: "Product not Created.",
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
     }
   }
   return (

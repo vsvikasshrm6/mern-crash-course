@@ -1,22 +1,29 @@
 import { create } from 'zustand';
 export const useProductStore = create((set) => ({
-    products: [],
-    setProduct: (product) => set((state) => ({ products: [...state.products, product] })),
-    // createProduct : (product) => {
-
-    // }
-    createProduct: async (product) => {
-        if (!product.name || !product.price || !product.image) {
+    product: [],
+    setProduct: (product) => set({product}),
+    createProduct: async (newProduct) => {
+        if (!newProduct.name || !newProduct.price || !newProduct.image) {
             return { success: 'false', message: 'Product not created' }
         }
         const res = await fetch('http://localhost:5000/', {
             method: "Post",
-            body: {product}
+            body: JSON.stringify(newProduct),
         })
         if (res.success === 'false') {
             return { success: 'false', message: 'Product not created' }
         }
-        setProduct(product);
+
+        set((state) => ({product : [...state.products, res.data.data]}));
         return { success: 'true', message: 'Product created successfully' }
-    } , 
+    },
+    fetchProduct : async ()=>{
+        const res = await fetch('api/allProducts', {
+            method :"Get"
+        })
+        const data = res.json();
+        set({data.data});
+        
+
+    } 
 }))
