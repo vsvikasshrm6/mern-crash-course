@@ -7,6 +7,6 @@ dotenv.config();
 const app = express();
 connectDb();
 app.use(express.json());
-app.use("", productRouter)
+// app.use("", productRouter)
 
 app.listen(3000);
