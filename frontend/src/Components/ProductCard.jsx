@@ -6,7 +6,7 @@ export default function ProductCard(props) {
   const {product} = props
   return (
     <Box>
-      <Image src={product.Image} alt={product.name} fit={'cover'}></Image>
+      <Image src={product.Image} alt={product.name} height={"48"} width={'full'} fit={'cover'}></Image>
       <Text>{product.name}</Text>
       <Text>{product.price}</Text>
       <HStack spacing={'2'}>
