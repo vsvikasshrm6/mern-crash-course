@@ -2,18 +2,20 @@ import { create } from 'zustand';
 export const useProductStore = create((set) => ({
     products: [],
     setProducts: (products) => set({products}),
-    createProducts: async (newProduct) => {
+    createProduct: async (newProduct) => {
         if (!newProduct.name || !newProduct.price || !newProduct.image) {
             return { success: 'false', message: 'Product not created' }
         }
-        const res = await fetch('http://localhost:5000/', {
+        const res = await fetch('http://localhost:3000/saveProduct', {
             method: "Post",
+            // mode: 'no-cors',
             headers :{
-                "Content-Type" : "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(newProduct),
         })
-        const data = res.json();
+        const data = await res.json();
+        console.log(data);
         if (data.success === 'false') {
             return { success: 'false', message: 'Product not created' }
         }
@@ -21,10 +23,13 @@ export const useProductStore = create((set) => ({
         return { success: 'true', message: 'Product created successfully' }
     },
     fetchProduct : async ()=>{
-        const res = await fetch('api/allProducts', {
-            method :"Get"
+        const res = await fetch('http://localhost:3000/allProducts', {
+            method :"Get",
+            headers :{
+                "Content-Type": "application/json",
+            },
         })
-        const data = res.json();
+        const data = await res.json();
         if (data.success === 'false') {
             return { success: 'false', message: 'Product not fetched' }
         }
@@ -32,7 +37,7 @@ export const useProductStore = create((set) => ({
         return { success: 'true', message: 'Product retrieved successfully' }
     },
     deleteProduct : async (pid)=>{
-      const res = await fetch(`http:/localhost:5000/deleteProduct/${pid}`,
+      const res = await fetch(`http://localhost:3000/deleteProduct${pid}`,
         {method : "DELETE"}
       )
       const data = res.json();
@@ -43,7 +48,7 @@ export const useProductStore = create((set) => ({
     return { success: 'true', message: 'Product deleted successfully' }
     },
     updateProduct : async (updatedProduct)=>{
-        const res = await fetch("http:localhost:5000/updateProduct",
+        const res = await fetch("http://localhost:3000/updateProduct",
             {
                 method : "PUT",
                 headers :{
@@ -52,7 +57,7 @@ export const useProductStore = create((set) => ({
                 body : JSON.stringify(updatedProduct),
             }
         )
-        const data = res.json();
+        const data = await res.json();
         if (data.success === 'false') {
             return { success: 'false', message: 'Product not updated' }
         }

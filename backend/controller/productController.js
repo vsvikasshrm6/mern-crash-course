@@ -39,6 +39,7 @@ export async function deleteProduct(req, res){
 }
 export async function saveProduct(req, res){
     const product = req.body;
+    console.log(product);
     if(product.name ==null || product.price== null || product.image==null){
         res.status(400).json({success : "false", message : "Enter Complete details"});
     }
